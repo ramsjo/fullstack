@@ -22,6 +22,6 @@ app.post('/api/todos', async (req, res) => {
   res.sendStatus(201);
 });
 
-app.listen(process.env.PORT || 5000, () =
+app.listen(process.env.PORT || 5000, () => {
   console.log('Server running on port 5000')
-);
+});
