@@ -11,12 +11,12 @@ const db = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
-app.get('/api/todos', async (req, res) = {
+app.get('/api/todos', async (req, res) => {
   const result = await db.query('SELECT  FROM todos');
   res.json(result.rows);
 });
 
-app.post('/api/todos', async (req, res) = {
+app.post('/api/todos', async (req, res) => {
   const { text } = req.body;
   await db.query('INSERT INTO todos (text) VALUES ($1)', [text]);
   res.sendStatus(201);
