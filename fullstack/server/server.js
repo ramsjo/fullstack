@@ -12,7 +12,7 @@ const db = new Pool({
 });
 
 app.get('/api/todos', async (req, res) => {
-  const result = await db.query('SELECT  FROM todos');
+  const result = await db.query('SELECT * FROM todos');
   res.json(result.rows);
 });
 
