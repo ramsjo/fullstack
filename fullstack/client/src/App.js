@@ -5,13 +5,13 @@ function App() {
   const [text, setText] = useState('');
 
   useEffect(() => {
-    fetch('/api/todos')
+    fetch('https://fullstackbackend-h71l.onrender.com/api/todos')
       .then(res => res.json())
       .then(setTodos);
   }, []);
 
   const addTodo = () => {
-    fetch('/api/todos', {
+    fetch('https://fullstackbackend-h71l.onrender.com/api/todos', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text }),
