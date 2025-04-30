@@ -15,6 +15,16 @@ app.get('/', (req, res) => {
   res.send('Backend is running');
 });
 
+app.get('/api/db-check', async (req, res) => {
+  try {
+    const result = await db.query('SELECT NOW()');
+    res.json({ connected: true, time: result.rows[0].now });
+  } catch (err) {
+    console.error('Database connection error:', err);
+    res.status(500).json({ connected: false, error: err.message });
+  }
+});
+
 app.get('/api/todos', async (req, res) => {
   const result = await db.query('SELECT * FROM todos');
   res.json(result.rows);
