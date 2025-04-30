@@ -11,6 +11,51 @@ const db = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
+async function ensureTodosTableExists() {
+  try {
+    const client = await pool.connect();
+
+    // Check if 'todos' table exists
+    const checkTableQuery = `
+      SELECT EXISTS (
+        SELECT FROM information_schema.tables 
+        WHERE table_schema = 'public' 
+        AND table_name = 'todos'
+      );
+    `;
+
+    const result = await client.query(checkTableQuery);
+
+    const exists = result.rows[0].exists;
+
+    if (exists) {
+      console.log("✅ 'todos' table already exists.");
+    } else {
+      console.log("⚠️ 'todos' table not found. Creating...");
+
+      const createTableQuery = `
+        CREATE TABLE todos (
+          id SERIAL PRIMARY KEY,
+          title TEXT NOT NULL,
+          completed BOOLEAN DEFAULT false
+        );
+      `;
+
+      await client.query(createTableQuery);
+      console.log("✅ 'todos' table created successfully.");
+    }
+
+    client.release();
+  } catch (error) {
+    console.error("❌ Error ensuring 'todos' table exists:", error);
+  } finally {
+    pool.end();
+  }
+}
+
+ensureTodosTableExists();
+
+
 app.get('/', (req, res) => {
   res.send('Backend is running');
 });
