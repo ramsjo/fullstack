@@ -11,6 +11,10 @@ const db = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
+app.get('/', (req, res) => {
+  res.send('Backend is running');
+});
+
 app.get('/api/todos', async (req, res) => {
   const result = await db.query('SELECT * FROM todos');
   res.json(result.rows);
