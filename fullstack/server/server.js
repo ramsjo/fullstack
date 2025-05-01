@@ -4,6 +4,7 @@ const cors = require('cors');
 const { Pool } = require('pg');
 
 const app = express();
+console.log(process.env.FRONTEND_URL);
 app.use(cors({
   origin: process.env.FRONTEND_URL,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
