@@ -4,11 +4,9 @@ const cors = require('cors');
 const { Pool } = require('pg');
 
 const app = express();
-const allowedOrigin = process.env.FRONTEND_URL;
-console.log('CORS allowed origin:', allowedOrigin); // 🐛 Debug line
-
 app.use(cors({
-  origin: allowedOrigin || false,
+  origin: process.env.FRONTEND_URL,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
 }));
 //app.use(cors({ origin: process.env.FRONTEND_URL }));
