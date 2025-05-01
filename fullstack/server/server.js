@@ -6,7 +6,7 @@ const { Pool } = require('pg');
 const app = express();
 console.log(process.env.FRONTEND_URL);
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
+  origin: 'https://fullstack-s4rr.onrender.com',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
 }));
